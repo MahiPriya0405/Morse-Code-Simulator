@@ -23,10 +23,11 @@ typedef int socklen_t;
 #define closesocket close
 #endif
 
-#define PORT 8080
+#define DEFAULT_PORT 8080
 #define REQUEST_SIZE 16384
 
-typedef struct {
+typedef struct
+{
     char *data;
     size_t length;
     size_t capacity;
@@ -55,16 +56,26 @@ static const char *reason_phrase(int status)
 {
     switch (status)
     {
-    case 201: return "Created";
-    case 200: return "OK";
-    case 204: return "No Content";
-    case 400: return "Bad Request";
-    case 401: return "Unauthorized";
-    case 404: return "Not Found";
-    case 405: return "Method Not Allowed";
-    case 409: return "Conflict";
-    case 500: return "Internal Server Error";
-    default: return "Error";
+    case 201:
+        return "Created";
+    case 200:
+        return "OK";
+    case 204:
+        return "No Content";
+    case 400:
+        return "Bad Request";
+    case 401:
+        return "Unauthorized";
+    case 404:
+        return "Not Found";
+    case 405:
+        return "Method Not Allowed";
+    case 409:
+        return "Conflict";
+    case 500:
+        return "Internal Server Error";
+    default:
+        return "Error";
     }
 }
 
@@ -185,23 +196,46 @@ static int json_append_string(JsonBuffer *json, const char *value)
 
         switch (*cursor)
         {
-        case '"': if (!json_append(json, "\\\"")) return 0; break;
-        case '\\': if (!json_append(json, "\\\\")) return 0; break;
-        case '\b': if (!json_append(json, "\\b")) return 0; break;
-        case '\f': if (!json_append(json, "\\f")) return 0; break;
-        case '\n': if (!json_append(json, "\\n")) return 0; break;
-        case '\r': if (!json_append(json, "\\r")) return 0; break;
-        case '\t': if (!json_append(json, "\\t")) return 0; break;
+        case '"':
+            if (!json_append(json, "\\\""))
+                return 0;
+            break;
+        case '\\':
+            if (!json_append(json, "\\\\"))
+                return 0;
+            break;
+        case '\b':
+            if (!json_append(json, "\\b"))
+                return 0;
+            break;
+        case '\f':
+            if (!json_append(json, "\\f"))
+                return 0;
+            break;
+        case '\n':
+            if (!json_append(json, "\\n"))
+                return 0;
+            break;
+        case '\r':
+            if (!json_append(json, "\\r"))
+                return 0;
+            break;
+        case '\t':
+            if (!json_append(json, "\\t"))
+                return 0;
+            break;
         default:
             if (*cursor < 0x20)
             {
                 snprintf(escaped, sizeof(escaped), "\\u%04x", *cursor);
-                if (!json_append(json, escaped)) return 0;
+                if (!json_append(json, escaped))
+                    return 0;
             }
             else
             {
                 char character[2] = {(char)*cursor, '\0'};
-                if (!json_append(json, character)) return 0;
+                if (!json_append(json, character))
+                    return 0;
             }
         }
 
@@ -493,7 +527,7 @@ static int valid_email_address(const char *email)
     }
 
     label_start = at + 1;
-    for (cursor = label_start; ; cursor++)
+    for (cursor = label_start;; cursor++)
     {
         if (*cursor == '.' || *cursor == '\0')
         {
@@ -1150,6 +1184,17 @@ int main(void)
     SOCKET server_socket;
     struct sockaddr_in address;
     int option = 1;
+    int port = DEFAULT_PORT;
+    char *port_env = getenv("PORT");
+
+    if (port_env != NULL && *port_env != '\0')
+    {
+        int parsed_port = atoi(port_env);
+        if (parsed_port > 0 && parsed_port <= 65535)
+        {
+            port = parsed_port;
+        }
+    }
 
     if (!open_database(&db) || !create_tables(db))
     {
@@ -1182,8 +1227,8 @@ int main(void)
 
     memset(&address, 0, sizeof(address));
     address.sin_family = AF_INET;
-    address.sin_addr.s_addr = htonl(INADDR_LOOPBACK);
-    address.sin_port = htons(PORT);
+    address.sin_addr.s_addr = htonl(INADDR_ANY);
+    address.sin_port = htons((unsigned short)port);
 
     setsockopt(server_socket, SOL_SOCKET, SO_REUSEADDR,
                (const char *)&option, sizeof(option));
@@ -1191,7 +1236,7 @@ int main(void)
     if (bind(server_socket, (struct sockaddr *)&address, sizeof(address)) < 0 ||
         listen(server_socket, 10) < 0)
     {
-        fprintf(stderr, "Could not start the backend on 127.0.0.1:%d.\n", PORT);
+        fprintf(stderr, "Could not start the backend on port %d.\n", port);
         closesocket(server_socket);
         close_database(db);
 #ifdef _WIN32
@@ -1200,7 +1245,7 @@ int main(void)
         return 1;
     }
 
-    printf("Morse backend running at http://127.0.0.1:%d\n", PORT);
+    printf("Morse backend running on port %d\n", port);
     printf("Using SQLite database: morse.db\n");
 
     for (;;)
