@@ -1,4 +1,4 @@
-const BACKEND_URL = window.MORSE_BACKEND_URL || "http://127.0.0.1:8080";
+const BACKEND_URL = window.MORSE_BACKEND_URL || "https://morse-code-simulator-80w8.onrender.com";
 
 /* =========================================================
    BACKEND CALL
@@ -68,7 +68,7 @@ function checkBackendConnection() {
       }
 
       backendStatus.textContent =
-        "Connected to backend (127.0.0.1:8080)";
+        "Connected to backend (Render)";
 
       backendStatus.className =
         "backend-status online";

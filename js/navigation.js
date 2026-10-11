@@ -1,7 +1,7 @@
 const navItems = document.querySelectorAll(".nav-item[data-page]");
 const pages = document.querySelectorAll(".page");
 const pageTitle = document.getElementById("pageTitle");
-window.MORSE_BACKEND_URL = window.MORSE_BACKEND_URL || "http://127.0.0.1:8080";
+window.MORSE_BACKEND_URL = window.MORSE_BACKEND_URL || "https://morse-code-simulator-80w8.onrender.com";
 
 const incomingUserId = new URLSearchParams(window.location.search).get("user_id");
 if (incomingUserId && /^[1-9]\d*$/.test(incomingUserId)) {
