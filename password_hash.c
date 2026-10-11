@@ -191,9 +191,22 @@ int hash_password(const char *password, char *encoded, size_t encoded_size)
         return 0;
     }
 #else
-    (void)salt;
-    (void)key;
-    return 0;
+    if (RAND_bytes(salt, PBKDF2_SALT_BYTES) != 1 ||
+        PKCS5_PBKDF2_HMAC(
+            password,
+            (int)strlen(password),
+            salt,
+            PBKDF2_SALT_BYTES,
+            PBKDF2_ITERATIONS,
+            EVP_sha256(),
+            PBKDF2_KEY_BYTES,
+            key
+        ) != 1)
+    {
+        secure_zero(salt, sizeof(salt));
+        secure_zero(key, sizeof(key));
+        return 0;
+    }
 #endif
 
     encode_hex(salt, sizeof(salt), salt_hex);
@@ -240,6 +253,20 @@ static int verify_hashed_password(const char *password, const char *stored_value
 #ifdef _WIN32
     if (derive_key(password, strlen(password), salt, actual, 0, iterations))
         matches = constant_time_equal(actual, expected, sizeof(actual));
+#else
+    if (PKCS5_PBKDF2_HMAC(
+            password,
+            (int)strlen(password),
+            salt,
+            PBKDF2_SALT_BYTES,
+            (int)iterations,
+            EVP_sha256(),
+            PBKDF2_KEY_BYTES,
+            actual
+        ) == 1)
+    {
+        matches = constant_time_equal(actual, expected, sizeof(actual));
+    }
 #endif
 
 cleanup:
