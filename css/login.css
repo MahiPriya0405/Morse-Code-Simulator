@@ -1,0 +1,249 @@
+:root {
+  --bg-page: #F4EDE4;
+  --bg-card: #FBF6EF;
+  --bg-field: #FFFFFF;
+  --border: #D9C9B4;
+  --text-primary: #3C2E22;
+  --text-secondary: #8A7660;
+  --accent: #8A5A3C;
+  --accent-dark: #704730;
+  --accent-text: #FBF6EF;
+  --danger: #B0453A;
+  --success: #4C7A4A;
+}
+ 
+* {
+  box-sizing: border-box;
+}
+ 
+body {
+  margin: 0;
+  font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg-page);
+  color: var(--text-primary);
+}
+ 
+/* ---------- Layout ---------- */
+.auth-wrap {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+ 
+.auth-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px 28px;
+  width: 100%;
+  max-width: 360px;
+  box-shadow: 0 12px 32px rgba(138, 90, 60, 0.15);
+  animation: fadeInUp 0.5s ease both;
+}
+
+.hidden {
+  display: none !important;
+}
+ 
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+ 
+/* ---------- Brand ---------- */
+.auth-brand {
+  text-align: center;
+  margin-bottom: 24px;
+}
+ 
+.auth-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #E8D9C4;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+ 
+.auth-brand h1 {
+  font-size: 19px;
+  font-weight: 700;
+  margin: 0 0 4px;
+  color: var(--text-primary);
+}
+ 
+.auth-subtitle {
+  font-size: 12.5px;
+  color: var(--text-secondary);
+  margin: 0;
+}
+ 
+/* ---------- Form ---------- */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+}
+ 
+.auth-form label {
+  font-size: 11.5px;
+  color: var(--text-secondary);
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+ 
+.auth-form input[type="text"],
+.auth-form input[type="password"],
+.auth-form input[type="email"] {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: var(--bg-field);
+  color: var(--text-primary);
+  padding: 10px 12px;
+  font-size: 13.5px;
+  font-family: inherit;
+  margin-bottom: 14px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+ 
+.auth-form input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(138, 90, 60, 0.12);
+}
+ 
+/* Password field with show/hide toggle */
+.password-field {
+  position: relative;
+}
+ 
+.password-field input {
+  padding-right: 40px;
+}
+ 
+.toggle-password {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-top: -7px; /* offsets the input's bottom margin so it centers visually */
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+  color: var(--text-secondary);
+  padding: 4px;
+  line-height: 1;
+}
+ 
+.toggle-password:hover {
+  color: var(--accent);
+}
+ 
+/* Remember me + forgot password row */
+.auth-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+ 
+.remember-me {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+ 
+.remember-me input {
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+ 
+.link-muted {
+  font-size: 12px;
+  color: var(--accent);
+  text-decoration: none;
+}
+ 
+.link-muted:hover {
+  text-decoration: underline;
+}
+ 
+.form-message {
+  font-size: 12px;
+  min-height: 16px;
+  margin: -8px 0 12px;
+}
+ 
+.form-message.error {
+  color: var(--danger);
+}
+ 
+.form-message.success {
+  color: var(--success);
+}
+ 
+/* ---------- Buttons ---------- */
+.btn {
+  border-radius: 9px;
+  padding: 11px 12px;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  border: none;
+  transition: transform 0.12s ease, filter 0.12s ease, box-shadow 0.12s ease;
+}
+ 
+.btn-primary {
+  background: var(--accent);
+  color: var(--accent-text);
+  box-shadow: 0 4px 14px rgba(138, 90, 60, 0.3);
+}
+ 
+.btn-primary:hover {
+  background: var(--accent-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(138, 90, 60, 0.38);
+}
+ 
+.btn-primary:active {
+  transform: translateY(0);
+}
+ 
+.full-width {
+  width: 100%;
+}
+ 
+/* ---------- Switch link ---------- */
+.auth-switch {
+  text-align: center;
+  font-size: 12.5px;
+  color: var(--text-secondary);
+  margin: 20px 0 0;
+}
+ 
+.auth-switch a {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+ 
+.auth-switch a:hover {
+  text-decoration: underline;
+}
+ 

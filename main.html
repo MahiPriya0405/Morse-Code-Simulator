@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Morse Code Simulator</title>
+
+<link rel="stylesheet" href="css/main.css" />
+</head>
+
+<body>
+
+<!-- Mobile overlay -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<div class="app-shell">
+
+  <!-- ================= SIDEBAR ================= -->
+
+  <aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-brand">
+      <span class="brand-logo">&#128161;</span>
+      <span class="brand-text">Morse Code Simulator</span>
+    </div>
+
+    <nav class="sidebar-nav">
+
+      <button type="button" class="nav-item active" data-page="home">
+        <span class="nav-icon">&#127968;</span>
+        Home
+      </button>
+
+      <button type="button" class="nav-item" data-page="dashboard">
+        <span class="nav-icon">&#128202;</span>
+        Dashboard
+      </button>
+
+      <button type="button" class="nav-item" data-page="translator">
+        <span class="nav-icon">&#128225;</span>
+        Morse Translator
+      </button>
+
+      <button type="button" class="nav-item" data-page="reference">
+        <span class="nav-icon">&#128214;</span>
+        Morse Code Overview
+      </button>
+
+      <button type="button" class="nav-item" data-page="history">
+        <span class="nav-icon">&#128336;</span>
+        Translation History
+      </button>
+
+      <button type="button" class="nav-item" data-page="quiz">
+        <span class="nav-icon">&#129504;</span>
+        Quiz
+      </button>
+
+      <button type="button" class="nav-item" data-page="profile">
+        <span class="nav-icon">&#128100;</span>
+        Profile
+      </button>
+
+      <button type="button" class="nav-item" data-page="settings">
+        <span class="nav-icon">&#9881;</span>
+        Settings
+      </button>
+
+    </nav>
+
+    <button type="button" class="nav-item nav-logout" id="logoutBtn">
+      <span class="nav-icon">&#128682;</span>
+      Logout
+    </button>
+
+  </aside>
+
+
+  <!-- ================= MAIN AREA ================= -->
+
+  <div class="main-area">
+
+    <!-- TOP BAR -->
+
+    <header class="topbar">
+
+      <button
+        type="button"
+        class="hamburger"
+        id="hamburgerBtn"
+        aria-label="Open menu"
+      >
+        &#9776;
+      </button>
+
+      <h1 class="page-title" id="pageTitle">
+        Home
+      </h1>
+
+    </header>
+
+
+    <main class="content">
+
+
+      <!-- ================================================= -->
+      <!-- HOME PAGE -->
+      <!-- ================================================= -->
+
+      <section class="page active" id="page-home">
+
+        <div class="hero">
+
+          <p class="hero-eyebrow">
+            &#128161; Morse Code Simulator
+          </p>
+
+          <h2>
+            Encode, decode and explore<br />
+            the language of dots and dashes.
+          </h2>
+
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-goto="translator"
+          >
+            Start Translating
+          </button>
+
+        </div>
+
+
+        <div class="card info-card">
+
+          <h3>What is Morse Code?</h3>
+
+          <p>
+            Morse code is a communication system that represents letters,
+            numbers and symbols using combinations of dots and dashes.
+            Each character has its own unique pattern, originally designed
+            to be sent as short and long pulses over telegraph lines or radio.
+          </p>
+
+          <div class="example-grid">
+
+            <div class="example-chip">
+              <span>A</span>.-
+            </div>
+
+            <div class="example-chip">
+              <span>B</span>-...
+            </div>
+
+            <div class="example-chip">
+              <span>C</span>-.-.
+            </div>
+
+            <div class="example-chip">
+              <span>S</span>...
+            </div>
+
+            <div class="example-chip">
+              <span>O</span>---
+            </div>
+
+          </div>
+
+
+          <div class="sos-example">
+
+            <p class="sos-label">
+              The most famous Morse message:
+            </p>
+
+            <p class="sos-code">
+              SOS &nbsp;&rarr;&nbsp; ... --- ...
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="card info-card">
+
+          <h3>How Morse Code Works</h3>
+
+          <div class="flow-diagram">
+
+            <div class="flow-step">
+              TEXT
+            </div>
+
+            <div class="flow-arrow">
+              &darr;
+            </div>
+
+            <div class="flow-step">
+              ENCODING
+            </div>
+
+            <div class="flow-arrow">
+              &darr;
+            </div>
+
+            <div class="flow-step">
+              DOTS &amp; DASHES
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="three-col">
+
+          <div class="card">
+
+            <h4>History</h4>
+
+            <p>
+              Developed in the 1830s-40s by Samuel Morse and Alfred Vail
+              for use on the electrical telegraph, it became the backbone
+              of long-distance communication for over a century.
+            </p>
+
+          </div>
+
+
+          <div class="card">
+
+            <h4>Uses</h4>
+
+            <p>
+              Used in maritime distress signals, amateur (ham) radio,
+              aviation navigation beacons, and as an accessible communication
+              method for people with certain disabilities.
+            </p>
+
+          </div>
+
+
+          <div class="card">
+
+            <h4>Applications</h4>
+
+            <p>
+              Still taught in military and emergency-response training,
+              and remains a popular hobby among radio operators and puzzle
+              enthusiasts worldwide.
+            </p>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- ================================================= -->
+      <!-- DASHBOARD PAGE -->
+      <!-- ================================================= -->
+
+      <section class="page" id="page-dashboard">
+
+        <p class="welcome-line">
+          Welcome back!
+        </p>
+
+        <div class="stat-grid" id="statGrid">
+          <!-- filled by dashboard.js -->
+        </div>
+
+
+        <div class="dashboard-grid">
+
+          <div class="card">
+
+            <h3>Translation Activity</h3>
+
+            <div class="bar-chart" id="activityChart">
+              <!-- filled by dashboard.js -->
+            </div>
+
+          </div>
+
+
+          <div class="card">
+
+            <h3>Recent Activity</h3>
+
+            <ul class="activity-list" id="recentActivityList">
+              <!-- filled by dashboard.js -->
+            </ul>
+
+          </div>
+
+
+          <div class="card">
+
+            <h3>Most Used Translation</h3>
+
+            <div class="usage-bars" id="usageBars">
+              <!-- filled by dashboard.js -->
+            </div>
+
+          </div>
+
+
+          <div class="card">
+
+            <h3>Quiz Performance</h3>
+
+            <div class="quiz-stats" id="quizStatsSummary">
+              <!-- filled by dashboard.js -->
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <p class="dummy-note" id="dashboardMessage">
+          Loading saved translation history...
+        </p>
+
+      </section>
+
+
+      <!-- ================================================= -->
+      <!-- TRANSLATOR PAGE -->
+      <!-- ================================================= -->
+
+      <section class="page" id="page-translator">
+
+        <div class="translator-grid">
+
+
+          <!-- ================= TEXT TO MORSE ================= -->
+
+          <div class="card translator-card">
+
+            <div class="translator-head">
+
+              <span class="translator-icon">
+                &#128196;
+              </span>
+
+              <h3>
+                Text / Characters &rarr; Morse
+              </h3>
+
+            </div>
+
+
+            <textarea
+              id="textInput"
+              rows="2"
+              placeholder="Type a word or sentence..."
+              maxlength="200"
+            ></textarea>
+
+
+            <p class="char-counter">
+              <span id="textCharCount">0</span>/200
+            </p>
+
+
+            <div class="output-box" id="textOutput">
+              Morse output will appear here
+            </div>
+
+
+            <div class="btn-row">
+
+              <!-- IMPORTANT: CORRECT ID -->
+              <button
+                type="button"
+                class="btn btn-primary"
+                id="textEnter"
+              >
+                Enter
+              </button>
+
+
+              <button
+                type="button"
+                class="btn btn-secondary"
+                id="textReset"
+              >
+                Reset
+              </button>
+
+
+              <button
+                type="button"
+                class="btn btn-icon"
+                id="textCopy"
+                title="Copy output"
+              >
+                &#128203;
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <!-- ================= NUMBER TO MORSE ================= -->
+
+          <div class="card translator-card">
+
+            <div class="translator-head">
+
+              <span class="translator-icon">
+                &#128290;
+              </span>
+
+              <h3>
+                Numbers &rarr; Morse
+              </h3>
+
+            </div>
+
+
+            <input
+              type="text"
+              id="numberInput"
+              placeholder="Type numbers only, e.g. 2026"
+              maxlength="50"
+            />
+
+
+            <p class="char-counter">
+              <span id="numberCharCount">0</span>/50
+            </p>
+
+
+            <div class="output-box" id="numberOutput">
+              Morse output will appear here
+            </div>
+
+
+            <div class="btn-row">
+
+              <button
+                type="button"
+                class="btn btn-primary"
+                id="numberEnter"
+              >
+                Enter
+              </button>
+
+
+              <button
+                type="button"
+                class="btn btn-secondary"
+                id="numberReset"
+              >
+                Reset
+              </button>
+
+
+              <button
+                type="button"
+                class="btn btn-icon"
+                id="numberCopy"
+                title="Copy output"
+              >
+                &#128203;
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <!-- ================= MORSE TO TEXT ================= -->
+
+          <div class="card translator-card">
+
+            <div class="translator-head">
+
+              <span class="translator-icon">
+                &#128225;
+              </span>
+
+              <h3>
+                Morse &rarr; Text
+              </h3>
+
+            </div>
+
+
+            <textarea
+              id="morseTextInput"
+              rows="2"
+              placeholder="Type morse code, e.g. .... .  .-.. .-.. ---"
+              maxlength="300"
+            ></textarea>
+
+
+            <p class="char-counter">
+              <span id="morseTextCharCount">0</span>/300
+            </p>
+
+
+            <div class="output-box" id="morseTextOutput">
+              Text output will appear here
+            </div>
+
+
+            <div class="btn-row">
+
+              <button
+                type="button"
+                class="btn btn-primary"
+                id="morseTextEnter"
+              >
+                Enter
+              </button>
+
+
+              <button
+                type="button"
+                class="btn btn-secondary"
+                id="morseTextReset"
+              >
+                Reset
+              </button>
+
+
+              <button
+                type="button"
+                class="btn btn-icon"
+                id="morseTextCopy"
+                title="Copy output"
+              >
+                &#128203;
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <!-- ================= MORSE TO NUMBER ================= -->
+
+          <div class="card translator-card">
+
+            <div class="translator-head">
+
+              <span class="translator-icon">
+                &#128290;
+              </span>
+
+              <h3>
+                Morse &rarr; Numbers
+              </h3>
+
+            </div>
+
+
+            <input
+              type="text"
+              id="morseNumberInput"
+              placeholder="Type morse code for numbers"
+              maxlength="150"
+            />
+
+
+            <p class="char-counter">
+              <span id="morseNumberCharCount">0</span>/150
+            </p>
+
+
+            <div class="output-box" id="morseNumberOutput">
+              Number output will appear here
+            </div>
+
+
+            <div class="btn-row">
+
+              <button
+                type="button"
+                class="btn btn-primary"
+                id="morseNumberEnter"
+              >
+                Enter
+              </button>
+
+
+              <button
+                type="button"
+                class="btn btn-secondary"
+                id="morseNumberReset"
+              >
+                Reset
+              </button>
+
+
+              <button
+                type="button"
+                class="btn btn-icon"
+                id="morseNumberCopy"
+                title="Copy output"
+              >
+                &#128203;
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <p
+          class="backend-status"
+          id="backendStatus"
+        >
+          Checking connection to backend...
+        </p>
+
+      </section>
+
+
+      <!-- ================================================= -->
+      <!-- REFERENCE PAGE -->
+      <!-- ================================================= -->
+
+      <section class="page" id="page-reference">
+
+        <div class="card">
+
+          <h3>
+            Morse Code Reference
+          </h3>
+
+          <input
+            type="text"
+            id="referenceSearch"
+            class="search-input"
+            placeholder="Search a letter, number, or code..."
+          />
+
+          <div
+            class="reference-grid"
+            id="referenceGrid"
+          >
+            <!-- filled by reference.js -->
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- ================================================= -->
+      <!-- HISTORY PAGE -->
+      <!-- ================================================= -->
+
+      <section class="page" id="page-history">
+
+        <div class="card">
+
+          <div class="history-controls">
+
+            <input
+              type="text"
+              id="historySearch"
+              class="search-input"
+              placeholder="Search history..."
+            />
+
+
+            <select
+              id="historyFilter"
+              class="filter-select"
+            >
+
+              <option value="all">
+                All types
+              </option>
+
+              <option value="Text → Morse">
+                Text &rarr; Morse
+              </option>
+
+              <option value="Number → Morse">
+                Number &rarr; Morse
+              </option>
+
+              <option value="Morse → Text">
+                Morse &rarr; Text
+              </option>
+
+              <option value="Morse → Number">
+                Morse &rarr; Number
+              </option>
+
+            </select>
+
+
+            <button
+              type="button"
+              class="btn btn-secondary"
+              id="clearHistoryBtn"
+            >
+              Clear history
+            </button>
+
+          </div>
+
+
+          <table class="history-table">
+
+            <thead>
+
+              <tr>
+                <th>Input</th>
+                <th>Type</th>
+                <th>Output</th>
+                <th>Time</th>
+              </tr>
+
+            </thead>
+
+
+            <tbody id="historyTableBody">
+              <!-- filled by history.js -->
+            </tbody>
+
+          </table>
+
+
+          
+        </div>
+
+      </section>
+
+
+      <!-- ================================================= -->
+      <!-- QUIZ PAGE -->
+      <!-- ================================================= -->
+
+      <section class="page" id="page-quiz">
+
+        <div class="card quiz-card">
+
+
+          <div
+            id="quizIntro"
+            class="quiz-body"
+          >
+
+            <h3>
+              Morse Quiz
+            </h3>
+
+            <p class="quiz-hint">
+              Test what you've learned.
+              Each question gives you 10 seconds.
+            </p>
+
+            <button
+              type="button"
+              class="btn btn-primary"
+              id="startQuizBtn"
+            >
+              Start quiz
+            </button>
+
+          </div>
+
+
+          <div
+            id="quizActive"
+            class="quiz-body hidden"
+          >
+
+            <div
+              class="quiz-question"
+              id="quizQuestion"
+            >
+              Question will appear here
+            </div>
+
+
+            <div
+              class="quiz-options"
+              id="quizOptions"
+            ></div>
+
+
+            <p
+              class="quiz-feedback"
+              id="quizFeedback"
+            ></p>
+
+
+            <p
+              class="quiz-hint"
+              id="quizTimerLine"
+            >
+              Time left: 10s
+            </p>
+
+
+            <button
+              type="button"
+              class="btn btn-secondary"
+              id="stopQuizBtn"
+            >
+              Stop quiz
+            </button>
+
+          </div>
+
+
+          <div
+            id="quizResult"
+            class="quiz-body hidden"
+          >
+
+            <p
+              class="quiz-question"
+              id="quizScoreLine"
+            >
+              Score: 0 / 0
+            </p>
+
+            <p class="quiz-feedback" id="quizSaveStatus" role="status" aria-live="polite"></p>
+
+
+            <button
+              type="button"
+              class="btn btn-primary"
+              id="restartQuizBtn"
+            >
+              Try again
+            </button>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- ================================================= -->
+      <!-- PROFILE PAGE -->
+      <!-- ================================================= -->
+
+      <section class="page" id="page-profile">
+
+        <div class="card profile-card">
+
+          <div class="profile-avatar">
+            M
+          </div>
+
+
+          <h3 id="profileName">
+            Loading profile…
+          </h3>
+
+
+          <p
+            class="profile-username"
+            id="profileUsername"
+          >
+            
+          </p>
+
+
+          <p
+            class="profile-email"
+            id="profileEmail"
+          >
+            
+          </p>
+
+
+          <div class="profile-stats">
+
+            <div>
+              <span id="profileTranslationCount">0</span>
+              Total translations
+            </div>
+
+            <div>
+              <span id="profileQuizAttempts">0</span>
+              Quiz attempts
+            </div>
+
+            <div>
+              <span id="profileBestQuizScore">—</span>
+              Best quiz score
+            </div>
+
+          </div>
+
+
+          <button
+            type="button"
+            class="btn btn-primary"
+            id="editProfileBtn"
+          >
+            Edit profile
+          </button>
+
+
+          <form
+            id="editProfileForm"
+            class="auth-form hidden"
+          >
+
+            <label for="editName">
+              Name
+            </label>
+
+            <input
+              type="text"
+              id="editName"
+              required
+            />
+
+
+            <label for="editUsername">
+              Username
+            </label>
+
+            <input
+              type="text"
+              id="editUsername"
+              required
+            />
+
+
+            <label for="editEmail">
+              Email
+            </label>
+
+            <input
+              type="email"
+              id="editEmail"
+              required
+            />
+
+            <p class="form-message" id="profileMessage" role="status" aria-live="polite"></p>
+
+
+            <div class="btn-row">
+
+              <button
+                type="submit"
+                class="btn btn-primary"
+              >
+                Save
+              </button>
+
+
+              <button
+                type="button"
+                class="btn btn-secondary"
+                id="cancelEditBtn"
+              >
+                Cancel
+              </button>
+
+            </div>
+
+          </form>
+
+        </div>
+
+      </section>
+
+
+      <!-- ================================================= -->
+      <!-- SETTINGS PAGE -->
+      <!-- ================================================= -->
+
+      <section
+        class="page"
+        id="page-settings"
+      >
+
+
+        <!-- Account -->
+
+        <div class="card settings-section">
+
+          <h3>
+            Account
+          </h3>
+
+
+          <label for="settingsUsername">
+            Username
+          </label>
+
+          <input
+            type="text"
+            id="settingsUsername"
+            required
+          />
+
+
+          <label for="settingsEmail">
+            Email
+          </label>
+
+          <input
+            type="email"
+            id="settingsEmail"
+            required
+          />
+
+
+          <button
+            type="button"
+            class="btn btn-secondary"
+            id="saveAccountChangesBtn"
+          >
+            Save account changes
+          </button>
+
+          <p class="form-message" id="settingsAccountMessage" role="status" aria-live="polite"></p>
+
+        </div>
+
+
+        <!-- Security -->
+
+        <div class="card settings-section">
+
+          <h3>
+            Security
+          </h3>
+
+
+          <label for="settingsNewPassword">
+            New password
+          </label>
+
+          <input
+            type="password"
+            id="settingsNewPassword"
+            placeholder="New password"
+          />
+
+
+          <label for="settingsConfirmPassword">
+            Confirm password
+          </label>
+
+          <input
+            type="password"
+            id="settingsConfirmPassword"
+            placeholder="Confirm new password"
+          />
+
+
+          <button
+            type="button"
+            class="btn btn-secondary"
+            id="updatePasswordBtn"
+          >
+            Update password
+          </button>
+
+          <p class="form-message" id="settingsPasswordMessage" role="status" aria-live="polite"></p>
+
+        </div>
+
+
+        <!-- Appearance -->
+
+        <div class="card settings-section">
+
+          <h3>
+            Appearance
+          </h3>
+
+
+          <div class="toggle-row">
+
+            <span>
+              Dark mode
+            </span>
+
+
+            <label class="switch">
+
+              <input
+                type="checkbox"
+                id="darkModeToggle"
+              />
+
+              <span class="slider"></span>
+
+            </label>
+
+          </div>
+
+        </div>
+
+
+        <!-- Preferences -->
+
+        <div class="card settings-section">
+
+          <h3>
+            Preferences
+          </h3>
+
+
+          <div class="toggle-row">
+
+            <span>
+              Sound
+            </span>
+
+
+            <label class="switch">
+
+              <input
+                type="checkbox"
+                id="soundToggle"
+                checked
+              />
+
+              <span class="slider"></span>
+
+            </label>
+
+          </div>
+
+
+          <div class="toggle-row">
+
+            <span>
+              Quiz notifications
+            </span>
+
+
+            <label class="switch">
+
+              <input
+                type="checkbox"
+                id="notificationsToggle"
+                checked
+              />
+
+              <span class="slider"></span>
+
+            </label>
+
+          </div>
+
+        </div>
+
+
+        <!-- Data -->
+
+        <div class="card settings-section">
+
+          <h3>
+            Data
+          </h3>
+
+
+          <button
+            type="button"
+            class="btn btn-secondary"
+            id="settingsClearHistoryBtn"
+          >
+            Clear translation history
+          </button>
+
+        </div>
+
+
+        <!-- Session -->
+
+        <div class="card settings-section">
+
+          <h3>
+            Session
+          </h3>
+
+
+          <button
+            type="button"
+            class="btn btn-primary"
+            id="settingsLogoutBtn"
+          >
+            Logout
+          </button>
+
+        </div>
+
+
+      </section>
+
+
+    </main>
+
+  </div>
+
+</div>
+
+
+<!-- ================================================= -->
+<!-- JAVASCRIPT FILES -->
+<!-- ================================================= -->
+
+<script src="js/navigation.js"></script>
+<script src="js/reference.js"></script>
+<script src="js/dashboard.js?v=4"></script>
+
+<script src="js/translator-ui.js"></script>
+<script src="js/history.js"></script>
+<script src="js/quiz-ui.js"></script>
+<script src="js/profile.js"></script>
+<script src="js/settings.js"></script>
+
+</body>
+</html>

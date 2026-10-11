@@ -1,0 +1,21 @@
+# Database files
+morse.db
+*.db-shm
+*.db-wal
+*.sqlite-wal
+*.sqlite-shm
+
+# Compiled files
+morse_server.exe
+*.o
+*.obj
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Editor files
+.vscode/
+.DS_Store
+Thumbs.db
