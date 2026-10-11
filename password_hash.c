@@ -6,22 +6,22 @@
 #include <stdlib.h>
 #include <string.h>
 
-#ifdef _WIN32
-#include <windows.h>
-
 #define PBKDF2_ITERATIONS 600000UL
 #define PBKDF2_SALT_BYTES 16
 #define PBKDF2_KEY_BYTES 32
 
+#ifdef _WIN32
+#include <windows.h>
+
 typedef void *BCRYPT_ALG_HANDLE;
-typedef LONG (WINAPI *bcrypt_open_algorithm_provider_fn)(
+typedef LONG(WINAPI *bcrypt_open_algorithm_provider_fn)(
     BCRYPT_ALG_HANDLE *, LPCWSTR, LPCWSTR, ULONG);
-typedef LONG (WINAPI *bcrypt_gen_random_fn)(
+typedef LONG(WINAPI *bcrypt_gen_random_fn)(
     BCRYPT_ALG_HANDLE, unsigned char *, ULONG, ULONG);
-typedef LONG (WINAPI *bcrypt_derive_key_pbkdf2_fn)(
+typedef LONG(WINAPI *bcrypt_derive_key_pbkdf2_fn)(
     BCRYPT_ALG_HANDLE, unsigned char *, ULONG, unsigned char *, ULONG,
     unsigned long long, unsigned char *, ULONG, ULONG);
-typedef LONG (WINAPI *bcrypt_close_algorithm_provider_fn)(
+typedef LONG(WINAPI *bcrypt_close_algorithm_provider_fn)(
     BCRYPT_ALG_HANDLE, ULONG);
 
 #define BCRYPT_ALG_HANDLE_HMAC_FLAG 0x00000008UL
