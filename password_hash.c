@@ -5,6 +5,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#ifndef _WIN32
+#include <openssl/evp.h>
+#include <openssl/rand.h>
+#endif
 
 #define PBKDF2_ITERATIONS 600000UL
 #define PBKDF2_SALT_BYTES 16
